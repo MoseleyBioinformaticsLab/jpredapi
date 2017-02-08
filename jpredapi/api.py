@@ -20,7 +20,7 @@ def _check_version(host=HOST, suffix="version"):
     """Check version of Jpred REST interface.
 
     :param str host: Jpred host address.
-    :param str suffix: Host dddress Suffix.
+    :param str suffix: Host dddress suffix.
     :return: Version of Jpred REST API.
     :rtype: :py:class:`str`
     """
@@ -207,7 +207,7 @@ def quota(email, host=HOST, suffix="quota"):
 
     :param str email: E-mail address.
     :param str host: Jpred host address.
-    :param str suffix: Host address Suffix.
+    :param str suffix: Host address suffix.
     :return: None
     :rtype: :py:obj:`None`
     """
