@@ -1,5 +1,5 @@
 The jpredapi Tutorial
-=======================
+=====================
 
 The :mod:`jpredapi` package provides functions to submit, check status, and 
 retrieve results from JPRED: A Secondary Structure Prediction Server.
@@ -268,8 +268,7 @@ Using jpredapi as a library
 Importing jpredapi module
 -------------------------
 
-If :mod:`jpredapi` package is installed on the system the :mod:`nmrstarlib.nmrstarlib`
-module can be imported:
+If :mod:`jpredapi` package is installed on the system, it can be imported:
 
 >>> import jpredapi
 
