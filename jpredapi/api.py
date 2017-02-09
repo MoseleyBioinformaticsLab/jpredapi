@@ -16,6 +16,7 @@ HOST = "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest"
 VERSION = "1.5.0"
 WAIT_INTERVAL = 60000  # 60000 milliseconds = 60 seconds
 
+
 def _check_version(host=HOST, suffix="version"):
     """Check version of Jpred REST interface.
 

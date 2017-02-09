@@ -279,56 +279,45 @@ Submit jobs to JPRED server
 Submit single sequence in ``raw`` format using ``seq`` parameter:
 *****************************************************************
 
->>> from jpredapi import submit
+>>> import jpredapi
 >>> 
->>> submit(mode="single", user_format="raw", seq="MQVWPIEGIKKFETLSYLPP")
+>>> jpredapi.submit(mode="single", user_format="raw", seq="MQVWPIEGIKKFETLSYLPP")
 >>>
 
 Submit single sequence in ``raw`` format using ``file`` parameter:
 ******************************************************************
 
->>> from jpredapi import submit
->>> 
->>> submit(mode="single", user_format="raw", file="tests/example_data/single_raw.example")
+>>> jpredapi.submit(mode="single", user_format="raw", file="tests/example_data/single_raw.example")
 >>>
 
 Submit single sequence in ``fasta`` format using ``file`` parameter:
 ********************************************************************
->>> from jpredapi import submit
->>> 
->>> submit(mode="single", user_format="fasta", file="tests/example_data/single_fasta.example")
+
+>>> jpredapi.submit(mode="single", user_format="fasta", file="tests/example_data/single_fasta.example")
 >>>
 
 Submit multiple sequences in ``fasta`` format using ``file`` parameter:
 ***********************************************************************
 
->>> from jpredapi import submit
->>> 
->>> submit(mode="batch", user_format="fasta", file="tests/example_data/batch_fasta.example", email="name@domain.com")
+>>> jpredapi.submit(mode="batch", user_format="fasta", file="tests/example_data/batch_fasta.example", email="name@domain.com")
 >>> 
 
 Submit multiple sequence alignment files in ``fasta`` format:
 *************************************************************
 
->>> from jpredapi import submit
->>> 
->>> submit(mode="msa", user_format="fasta", file="tests/example_data/msa_fasta.example", email="name@domain.com")
+>>> jpredapi.submit(mode="msa", user_format="fasta", file="tests/example_data/msa_fasta.example", email="name@domain.com")
 >>> 
 
 Submit multiple sequence alignment files in ``msf`` format:
 ***********************************************************
 
->>> from jpredapi import submit
->>> 
->>> submit(mode="msa", user_format="msf", file="tests/example_data/msa_msf.example", email="name@domain.com")
+>>> jpredapi.submit(mode="msa", user_format="msf", file="tests/example_data/msa_msf.example", email="name@domain.com")
 >>> 
 
 Submit multiple sequence alignment files in ``blc`` format:
 ***********************************************************
 
->>> from jpredapi import submit
->>> 
->>> submit(mode="msa", user_format="blc", file="tests/example_data/msa_blc.example", email="name@domain.com")
+>>> jpredapi.submit(mode="msa", user_format="blc", file="tests/example_data/msa_blc.example", email="name@domain.com")
 >>> 
 
 Check job status on JPRED server 
@@ -337,26 +326,22 @@ Check job status on JPRED server
 Check single job status using ``job_id``:
 *****************************************
 
->>> from jpredapi import status
->>> 
->>> status(job_id="jp_K46D05A")
+>>> import jpredapi
+>>>
+>>> jpredapi.status(job_id="jp_K46D05A")
 >>> 
 
 
 Check single job status using ``job_id`` and retrieve results:
 **************************************************************
 
->>> from jpredapi import status
->>> 
->>> status(job_id="jp_K46D05A", results_dir_path="jpred_sspred/results")
->>> 
+>>> jpredapi.status(job_id="jp_K46D05A", results_dir_path="jpred_sspred/results")
+>>>
 
 Check single job status using ``job_id``, retrieve results, and decompress archive:
 ***********************************************************************************
 
->>> from jpredapi import status
->>> 
->>> status(job_id="jp_K46D05A", results_dir_path="jpred_sspred/results", extract=True)
+>>> jpredapi.status(job_id="jp_K46D05A", results_dir_path="jpred_sspred/results", extract=True)
 >>> 
 
 Retrieve results from JPRED server 
@@ -365,23 +350,21 @@ Retrieve results from JPRED server
 Retrieve results using ``job_id``:
 **********************************
 
->>> from jpredapi import get_results
->>> 
->>> get_results(job_id="jp_K46D05A", results_dir_path="jpred_sspred/results")
+>>> import jpredapi
+>>>
+>>> jpredapi.get_results(job_id="jp_K46D05A", results_dir_path="jpred_sspred/results")
 >>> 
 
 Retrieve results using ``job_id`` and decompress archive:
 *********************************************************
 
->>> from jpredapi import get_results
->>> 
->>> get_results(job_id="jp_K46D05A", results_dir_path="jpred_sspred/results", extract=True)
+>>> jpredapi.get_results(job_id="jp_K46D05A", results_dir_path="jpred_sspred/results", extract=True)
 >>> 
 
 Check how many jobs you have already submitted on a given day:
-**************************************************************
+--------------------------------------------------------------
 
->>> from jpredapi import quota
+>>> import jpredapi
 >>> 
->>> quota(email="name@domain.com")
+>>> jpredapi.quota(email="name@domain.com")
 >>>

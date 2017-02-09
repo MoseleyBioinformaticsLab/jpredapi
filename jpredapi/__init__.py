@@ -20,18 +20,15 @@ Usage example for command-line:
 
 Usage example for interactive Python shell:
 
-   >>> from jpredapi import submit
-   >>> from jpredapi import status
-   >>> from jpredapi import get_results
-   >>> from jpredapi import quota
+   >>> import jpredapi
    >>>
-   >>> submit(mode="single", user_format="raw", seq="MQVWPIEGIKKFETLSYLPP")
+   >>> jpredapi.submit(mode="single", user_format="raw", seq="MQVWPIEGIKKFETLSYLPP")
    >>>
-   >>> status(job_id="jp_K46D05A")
+   >>> jpredapi.status(job_id="jp_K46D05A")
    >>>
-   >>> get_results(job_id="jp_K46D05A", results_dir_path="jpred_sspred/results")
+   >>> jpredapi.get_results(job_id="jp_K46D05A", results_dir_path="jpred_sspred/results")
    >>>
-   >>> quota(email="name@domain.com")
+   >>> jpredapi.quota(email="name@domain.com")
    >>>
 """
 
