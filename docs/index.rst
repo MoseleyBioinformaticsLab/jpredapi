@@ -6,6 +6,8 @@
 Welcome to jpredapi's documentation!
 ====================================
 
+.. include:: ../README.rst
+
 Contents:
 
 .. toctree::

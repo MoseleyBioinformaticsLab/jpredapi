@@ -1,7 +1,7 @@
 jpredapi
 ========
 
-The :mod:`jpredapi` package provides a simple Python interface for submitting
+The `jpredapi` package provides a simple Python interface for submitting
 and retrieving jobs from JPRED: A Protein Secondary Structure Prediction Server
 (JPRED_).
 
