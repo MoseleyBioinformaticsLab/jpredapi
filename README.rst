@@ -12,9 +12,9 @@ http://www.compbio.dundee.ac.uk/jpred4/api.shtml
 Links
 ~~~~~
 
-   * jpredapi @ GitHub
+   * jpredapi @ GitHub_
    * jpredapi @ PyPI
-   * Documentation @ ReadTheDocs
+   * Documentation @ ReadTheDocs_
 
 
 Installation
@@ -40,3 +40,6 @@ Install on Windows
 
 .. _pip: https://pip.pypa.io/
 .. _JPRED: http://www.compbio.dundee.ac.uk/jpred/
+
+.. _GitHub: https://github.com/MoseleyBioinformaticsLab/jpredapi
+.. _ReadTheDocs: http://jpredapi.readthedocs.io/
