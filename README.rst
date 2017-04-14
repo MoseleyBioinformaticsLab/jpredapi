@@ -5,10 +5,14 @@ The `jpredapi` package provides a simple Python interface for submitting
 and retrieving jobs from JPRED: A Protein Secondary Structure Prediction Server
 (JPRED_).
 
+This is unofficial Python port of `jpredapi` perl script that can be found here:
+http://www.compbio.dundee.ac.uk/jpred4/api.shtml
+
 
 Links
 ~~~~~
 
+   * jpredapi @ GitHub
    * jpredapi @ PyPI
    * Documentation @ ReadTheDocs
 
