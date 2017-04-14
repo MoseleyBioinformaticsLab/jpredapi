@@ -1,0 +1,6 @@
+include README.rst
+include LICENSE
+include requirements.txt
+include docs/Makefile
+recursive-include docs *.rst *.txt *.py *.png *.svg
+recursive-include jpredapi *.py
