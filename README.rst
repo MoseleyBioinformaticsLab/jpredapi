@@ -13,7 +13,7 @@ Links
 ~~~~~
 
    * jpredapi @ GitHub_
-   * jpredapi @ PyPI
+   * jpredapi @ PyPI_
    * Documentation @ ReadTheDocs_
 
 
@@ -44,5 +44,6 @@ Install on Windows
 
 .. _GitHub: https://github.com/MoseleyBioinformaticsLab/jpredapi
 .. _ReadTheDocs: http://jpredapi.readthedocs.io/
+.. _PyPI: https://pypi.python.org/pypi/jpredapi/1.5.0
 .. _User Guide: http://jpredapi.readthedocs.io/en/latest/guide.html
 .. _The jpredapi Tutorial: http://jpredapi.readthedocs.io/en/latest/tutorial.html
