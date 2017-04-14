@@ -33,9 +33,9 @@ Options:
     --wait_interval=<interval>   Wait interval before retrying to check job status in seconds [default: 60].
 """
 
-import re
 import docopt
 from . import api
+from . import __version__
 
 
 def main(cmdargs):
@@ -71,15 +71,5 @@ def main(cmdargs):
         api.quota(email=cmdargs["--email"])
 
 
-def get_version():
-    """Get jpredapi version."""
-    with open("jpredapi/__init__.py", "r") as fd:
-        version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]',
-                            fd.read(), re.MULTILINE).group(1)
-    if not version:
-        raise RuntimeError("Cannot find version information")
-    return version
-
-
-args = docopt.docopt(__doc__, version=get_version())
+args = docopt.docopt(__doc__, version=__version__)
 main(args)

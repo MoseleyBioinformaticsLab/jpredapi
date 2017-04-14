@@ -38,5 +38,4 @@ from .api import get_results
 from .api import quota
 
 
-__title__ = "jpredapi"
 __version__ = "1.5.0"
