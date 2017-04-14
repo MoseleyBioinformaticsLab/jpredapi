@@ -113,7 +113,7 @@ def submit(mode, user_format, file=None, seq=None, skipPDB=True, email=None, nam
 
     parameters_list = ["{}={}".format(k, v) for k, v in parameters_dict.items() if v]
     parameters_list.append(sequence_query)
-    query = "£€£€".join(parameters_list)
+    query = u"£€£€".join(parameters_list)
 
     response = requests.post("{}/{}".format(HOST, "job"),
                              data=query.encode("utf-8"),
