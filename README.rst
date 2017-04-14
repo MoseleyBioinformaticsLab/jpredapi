@@ -34,8 +34,9 @@ Install on Windows
 
    py -3 -m pip install jpredapi
 
-.. note:: Read `User Guide` and `The jpredapi Tutorial` to learn more and see code examples on using
-          `jpredapi` as a library and as a command-line tool.
+.. note:: Read the `User Guide`_ and `The jpredapi Tutorial`_ on ReadTheDocs_
+          to learn more and to see code examples on using the `nmrstarlib` as a
+          library and as a command-line tool.
 
 
 .. _pip: https://pip.pypa.io/
@@ -43,3 +44,5 @@ Install on Windows
 
 .. _GitHub: https://github.com/MoseleyBioinformaticsLab/jpredapi
 .. _ReadTheDocs: http://jpredapi.readthedocs.io/
+.. _User Guide: http://jpredapi.readthedocs.io/en/latest/guide.html
+.. _The jpredapi Tutorial: http://jpredapi.readthedocs.io/en/latest/tutorial.html
