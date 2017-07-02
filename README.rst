@@ -1,6 +1,19 @@
 jpredapi
 ========
 
+.. image:: https://img.shields.io/pypi/l/jpredapi.svg
+   :target: https://pypi.python.org/pypi/jpredapi
+
+.. image:: https://img.shields.io/pypi/v/jpredapi.svg
+   :target: https://pypi.python.org/pypi/jpredapi
+
+.. image:: https://img.shields.io/pypi/pyversions/jpredapi.svg
+   :target: https://pypi.python.org/pypi/jpredapi
+
+.. image:: https://readthedocs.org/projects/jpredapi/badge/?version=latest
+    :target: https://jpredapi.readthedocs.io/en/latest/?badge=latest
+
+
 The `jpredapi` package provides a simple Python interface for submitting
 and retrieving jobs from JPRED: A Protein Secondary Structure Prediction Server
 (JPRED_).
@@ -35,7 +48,7 @@ Install on Windows
    py -3 -m pip install jpredapi
 
 .. note:: Read the `User Guide`_ and `The jpredapi Tutorial`_ on ReadTheDocs_
-          to learn more and to see code examples on using the `nmrstarlib` as a
+          to learn more and to see code examples on using the `jpredapi` as a
           library and as a command-line tool.
 
 
