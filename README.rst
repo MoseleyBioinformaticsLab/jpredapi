@@ -1,7 +1,7 @@
 jpredapi
 ========
 
-.. image:: https://img.shields.io/pypi/l/jpredapi.svg
+.. image:: https://img.shields.io/badge/license-BSD%203--Clause-blue.svg
    :target: https://pypi.python.org/pypi/jpredapi
 
 .. image:: https://img.shields.io/pypi/v/jpredapi.svg
