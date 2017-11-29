@@ -6,11 +6,11 @@ jpredapi
    :alt: License information
 
 .. image:: https://img.shields.io/pypi/v/jpredapi.svg
-   :target: https://pypi.python.org/pypi/jpredapi
+   :target: https://pypi.org/project/jpredapi/
    :alt: Current library version
 
 .. image:: https://img.shields.io/pypi/pyversions/jpredapi.svg
-   :target: https://pypi.python.org/pypi/jpredapi
+   :target: https://pypi.org/project/jpredapi/
    :alt: Supported Python versions
 
 .. image:: https://readthedocs.org/projects/jpredapi/badge/?version=latest
