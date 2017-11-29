@@ -38,4 +38,4 @@ from .api import get_results
 from .api import quota
 
 
-__version__ = "1.5.0"
+__version__ = "1.5.1"
