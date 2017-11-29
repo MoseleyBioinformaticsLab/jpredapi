@@ -1,17 +1,21 @@
 jpredapi
 ========
 
-.. image:: https://img.shields.io/badge/license-BSD%203--Clause-blue.svg
-   :target: https://pypi.python.org/pypi/jpredapi
+.. image:: https://img.shields.io/pypi/l/jpredapi.svg
+   :target: https://choosealicense.com/licenses/bsd-3-clause-clear/
+   :alt: License information
 
 .. image:: https://img.shields.io/pypi/v/jpredapi.svg
    :target: https://pypi.python.org/pypi/jpredapi
+   :alt: Current library version
 
 .. image:: https://img.shields.io/pypi/pyversions/jpredapi.svg
    :target: https://pypi.python.org/pypi/jpredapi
+   :alt: Supported Python versions
 
 .. image:: https://readthedocs.org/projects/jpredapi/badge/?version=latest
-    :target: https://jpredapi.readthedocs.io/en/latest/?badge=latest
+   :target: https://jpredapi.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation status
 
 
 The `jpredapi` package provides a simple Python interface for submitting
@@ -52,6 +56,12 @@ Install on Windows
           library and as a command-line tool.
 
 
+License
+~~~~~~~
+
+This package is distributed under the BSD_ `license`.
+
+
 .. _pip: https://pip.pypa.io/
 .. _JPRED: http://www.compbio.dundee.ac.uk/jpred/
 
@@ -60,3 +70,4 @@ Install on Windows
 .. _PyPI: https://pypi.python.org/pypi/jpredapi/1.5.0
 .. _User Guide: http://jpredapi.readthedocs.io/en/latest/guide.html
 .. _The jpredapi Tutorial: http://jpredapi.readthedocs.io/en/latest/tutorial.html
+.. _BSD: https://choosealicense.com/licenses/bsd-3-clause-clear/
