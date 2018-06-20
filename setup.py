@@ -4,7 +4,7 @@
 import os
 import sys
 import re
-from setuptools import setup, find_packages, Extension
+from setuptools import setup, find_packages
 
 
 if sys.argv[-1] == 'publish':
