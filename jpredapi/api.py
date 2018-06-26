@@ -37,7 +37,7 @@ def resolve_rest_format(mode, user_format):
     
     :param str mode: Submission mode, possible values: `single`, `batch`, `msa`.
     :param str user_format: Submission format, possible values: `raw`, `fasta`, `msf`, `blc`.
-    :return: Format for REST interface.
+    :return: Format for Jpred REST interface.
     :rtype: :py:class:`str`
     """
     if user_format == "raw" and mode == "single":
@@ -62,12 +62,10 @@ def resolve_rest_format(mode, user_format):
                                 --mode=batch  --format=fasta""")
     return rest_format
 
-
-def submit(mode, user_format, file=None, seq=None, skipPDB=True, email=None, name=None, silent=False):
-    """Submit job to Jpred server.
-
-    :param str mode: Submission mode, possible values: `single`, `batch`, `msa`.
-    :param str user_format: Submission format, possible values: `raw`, `fasta`, `msf`, `blc`.
+def create_jpred_query(rest_format, file=None, seq=None, skipPDB=True, email=None, name=None, silent=False):
+    """Creates query string to be submitted to Jpred server.
+    
+    :param str rest_format: Format for Jpred REST interface.
     :param str file: Filename of a file with the job input (sequence or msa).
     :param str seq: Amino acid sequence passed as string of single-letter code without spaces, e.g. --seq=ATWFGTHY
     :param skipPDB: PDB check will not be performed (True), otherwise perform PDB check (False).
@@ -76,12 +74,9 @@ def submit(mode, user_format, file=None, seq=None, skipPDB=True, email=None, nam
     :param str name: Job name.
     :param silent: Print information about job submission.
     :type silent: :py:obj:`True` or :py:obj:`False`
-    :return: None
-    :rtype: :py:obj:`None`
+    :return: Query string.
+    :rtype: :py:class:`str`
     """
-    rest_format = resolve_rest_format(mode=mode, user_format=user_format)
-
-
     if file is None and seq is None:
         raise ValueError("""Neither input sequence nor input file are defined.
         Please provide either --file or --seq parameters.""")
@@ -128,6 +123,28 @@ def submit(mode, user_format, file=None, seq=None, skipPDB=True, email=None, nam
     parameters_list = ["{}={}".format(k, v) for k, v in parameters_dict.items() if v]
     parameters_list.append(sequence_query)
     query = u"£€£€".join(parameters_list)
+    return query
+
+
+def submit(mode, user_format, file=None, seq=None, skipPDB=True, email=None, name=None, silent=False):
+    """Submit job to Jpred server.
+
+    :param str mode: Submission mode, possible values: `single`, `batch`, `msa`.
+    :param str user_format: Submission format, possible values: `raw`, `fasta`, `msf`, `blc`.
+    :param str file: Filename of a file with the job input (sequence or msa).
+    :param str seq: Amino acid sequence passed as string of single-letter code without spaces, e.g. --seq=ATWFGTHY
+    :param skipPDB: PDB check will not be performed (True), otherwise perform PDB check (False).
+    :type skipPDB: :py:obj:`True` or :py:obj:`False`
+    :param str email: E-mail address.
+    :param str name: Job name.
+    :param silent: Print information about job submission.
+    :type silent: :py:obj:`True` or :py:obj:`False`
+    :return: None
+    :rtype: :py:obj:`None`
+    """
+    rest_format = resolve_rest_format(mode=mode, user_format=user_format)
+    query = create_jpred_query(rest_format=rest_format, file=file, seq=seq,
+                               skipPDB=skipPDB, email=email, name=name, silent=silent)
 
     response = requests.post("{}/{}".format(HOST, "job"),
                              data=query.encode("utf-8"),
