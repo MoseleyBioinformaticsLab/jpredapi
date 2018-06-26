@@ -17,7 +17,7 @@ VERSION = "1.5.0"
 WAIT_INTERVAL = 60000  # 60000 milliseconds = 60 seconds
 
 
-def _check_version(host="http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest",
+def check_version(host="http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest",
                    suffix="version"):
     """Check version of Jpred REST interface.
 
@@ -32,98 +32,19 @@ def _check_version(host="http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest",
     return version
 
 
-def resolve_rest_format(mode, user_format):
-    """Resolve format of submission to Jpred REST interface based on provided mode and user format.
-    
-    :param str mode: Submission mode, possible values: `single`, `batch`, `msa`.
-    :param str user_format: Submission format, possible values: `raw`, `fasta`, `msf`, `blc`.
-    :return: Format for Jpred REST interface.
-    :rtype: :py:class:`str`
-    """
-    if user_format == "raw" and mode == "single":
-        rest_format = "seq"
-    elif user_format == "fasta" and mode == "single":
-        rest_format = "seq"
-    elif user_format == "fasta" and mode == "msa":
-        rest_format = "fasta"
-    elif user_format == "msf" and mode == "msa":
-        rest_format = "msf"
-    elif user_format == "blc" and mode == "msa":
-        rest_format = "blc"
-    elif user_format == "fasta" and mode == "batch":
-        rest_format = "batch"
-    else:
-        raise ValueError("""Invalid mode/format combination.
-        Valid combinations are: --mode=single --format=raw
-                                --mode=single --format=fasta
-                                --mode=msa    --format=fasta
-                                --mode=msa    --format=msf
-                                --mode=msa    --format=blc
-                                --mode=batch  --format=fasta""")
-    return rest_format
+def quota(email, host=HOST, suffix="quota"):
+    """Check how many jobs you have already submitted on a given day
+    (out of 1000 maximum allowed jobs per user per day).
 
-def create_jpred_query(rest_format, file=None, seq=None, skipPDB=True, email=None, name=None, silent=False):
-    """Creates query string to be submitted to Jpred server.
-    
-    :param str rest_format: Format for Jpred REST interface.
-    :param str file: Filename of a file with the job input (sequence or msa).
-    :param str seq: Amino acid sequence passed as string of single-letter code without spaces, e.g. --seq=ATWFGTHY
-    :param skipPDB: PDB check will not be performed (True), otherwise perform PDB check (False).
-    :type skipPDB: :py:obj:`True` or :py:obj:`False`
     :param str email: E-mail address.
-    :param str name: Job name.
-    :param silent: Print information about job submission.
-    :type silent: :py:obj:`True` or :py:obj:`False`
-    :return: Query string.
-    :rtype: :py:class:`str`
+    :param str host: Jpred host address.
+    :param str suffix: Host address suffix.
+    :return: Response.
+    :rtype: requests.Response
     """
-    if file is None and seq is None:
-        raise ValueError("""Neither input sequence nor input file are defined.
-        Please provide either --file or --seq parameters.""")
-    elif file and seq:
-        raise ValueError("""Both input sequence and input file are defined.
-        Please choose --file or --seq parameter.""")
-
-    if file is not None:
-        with open(file, "r") as infile:
-            sequence_query = infile.read()
-    elif seq is not None:
-        sequence_query = ">query\n{}".format(seq)
-    else:
-        sequence_query = ""
-
-    if skipPDB:
-        skipPDB = "on"
-    else:
-        skipPDB = "off"
-
-    if rest_format == "batch" and email is None:
-        raise ValueError("""When submitting batch job email is obligatory.
-        You will receive detailed report, list of links and a link to archive
-        to all results via email.""")
-
-    if not silent:
-        print("Your job will be submitted with the following parameters:")
-        print("format:", rest_format)
-        print("skipPDB:", skipPDB)
-        if file is not None:
-            print("file:", file)
-        elif seq is not None:
-            print("seq:", seq)
-        if email is not None:
-            print("email:", email)
-        if name is not None:
-            print("name:", name)
-
-    parameters_dict = OrderedDict([("skipPDB", skipPDB),
-                                   ("format", rest_format),
-                                   ("email", email),
-                                   ("name", name)])
-
-    parameters_list = ["{}={}".format(k, v) for k, v in parameters_dict.items() if v]
-    parameters_list.append(sequence_query)
-    query = u"£€£€".join(parameters_list)
-    return query
+    quota_url = "{}/{}/{}".format(host, suffix, email)
+    response = requests.get(quota_url)
+    return response
 
 
 def submit(mode, user_format, file=None, seq=None, skipPDB=True, email=None, name=None, silent=False):
@@ -142,9 +63,9 @@ def submit(mode, user_format, file=None, seq=None, skipPDB=True, email=None, nam
     :return: Response.
     :rtype: requests.Response
     """
-    rest_format = resolve_rest_format(mode=mode, user_format=user_format)
-    query = create_jpred_query(rest_format=rest_format, file=file, seq=seq,
-                               skipPDB=skipPDB, email=email, name=name, silent=silent)
+    rest_format = _resolve_rest_format(mode=mode, user_format=user_format)
+    query = _create_jpred_query(rest_format=rest_format, file=file, seq=seq,
+                                skipPDB=skipPDB, email=email, name=name, silent=silent)
 
     response = requests.post("{}/{}".format(HOST, "job"),
                              data=query.encode("utf-8"),
@@ -236,16 +157,96 @@ def get_results(job_id, results_dir_path=None, extract=False, silent=False):
     return status(job_id=job_id, results_dir_path=results_dir_path, extract=extract, silent=silent)
 
 
-def quota(email, host=HOST, suffix="quota"):
-    """Check how many jobs you have already submitted on a given day
-    (out of 1000 maximum allowed jobs per user per day).
+def _resolve_rest_format(mode, user_format):
+    """Resolve format of submission to Jpred REST interface based on provided mode and user format.
 
-    :param str email: E-mail address.
-    :param str host: Jpred host address.
-    :param str suffix: Host address suffix.
-    :return: Response.
-    :rtype: requests.Response
+    :param str mode: Submission mode, possible values: `single`, `batch`, `msa`.
+    :param str user_format: Submission format, possible values: `raw`, `fasta`, `msf`, `blc`.
+    :return: Format for Jpred REST interface.
+    :rtype: :py:class:`str`
     """
-    quota_url = "{}/{}/{}".format(host, suffix, email)
-    response = requests.get(quota_url)
-    return response
+    if user_format == "raw" and mode == "single":
+        rest_format = "seq"
+    elif user_format == "fasta" and mode == "single":
+        rest_format = "seq"
+    elif user_format == "fasta" and mode == "msa":
+        rest_format = "fasta"
+    elif user_format == "msf" and mode == "msa":
+        rest_format = "msf"
+    elif user_format == "blc" and mode == "msa":
+        rest_format = "blc"
+    elif user_format == "fasta" and mode == "batch":
+        rest_format = "batch"
+    else:
+        raise ValueError("""Invalid mode/format combination.
+        Valid combinations are: --mode=single --format=raw
+                                --mode=single --format=fasta
+                                --mode=msa    --format=fasta
+                                --mode=msa    --format=msf
+                                --mode=msa    --format=blc
+                                --mode=batch  --format=fasta""")
+    return rest_format
+
+
+def _create_jpred_query(rest_format, file=None, seq=None, skipPDB=True, email=None, name=None, silent=False):
+    """Creates query string to be submitted to Jpred server.
+
+    :param str rest_format: Format for Jpred REST interface.
+    :param str file: Filename of a file with the job input (sequence or msa).
+    :param str seq: Amino acid sequence passed as string of single-letter code without spaces, e.g. --seq=ATWFGTHY
+    :param skipPDB: PDB check will not be performed (True), otherwise perform PDB check (False).
+    :type skipPDB: :py:obj:`True` or :py:obj:`False`
+    :param str email: E-mail address.
+    :param str name: Job name.
+    :param silent: Print information about job submission.
+    :type silent: :py:obj:`True` or :py:obj:`False`
+    :return: Query string.
+    :rtype: :py:class:`str`
+    """
+    if file is None and seq is None:
+        raise ValueError("""Neither input sequence nor input file are defined.
+        Please provide either --file or --seq parameters.""")
+    elif file and seq:
+        raise ValueError("""Both input sequence and input file are defined.
+        Please choose --file or --seq parameter.""")
+
+    if file is not None:
+        with open(file, "r") as infile:
+            sequence_query = infile.read()
+    elif seq is not None:
+        sequence_query = ">query\n{}".format(seq)
+    else:
+        sequence_query = ""
+
+    if skipPDB:
+        skipPDB = "on"
+    else:
+        skipPDB = "off"
+
+    if rest_format == "batch" and email is None:
+        raise ValueError("""When submitting batch job email is obligatory.
+        You will receive detailed report, list of links and a link to archive
+        to all results via email.""")
+
+    if not silent:
+        print("Your job will be submitted with the following parameters:")
+        print("format:", rest_format)
+        print("skipPDB:", skipPDB)
+        if file is not None:
+            print("file:", file)
+        elif seq is not None:
+            print("seq:", seq)
+        if email is not None:
+            print("email:", email)
+        if name is not None:
+            print("name:", name)
+
+    parameters_dict = OrderedDict([("skipPDB", skipPDB),
+                                   ("format", rest_format),
+                                   ("email", email),
+                                   ("name", name)])
+
+    parameters_list = ["{}={}".format(k, v) for k, v in parameters_dict.items() if v]
+    parameters_list.append(sequence_query)
+    query = u"£€£€".join(parameters_list)
+    return query
