@@ -139,8 +139,8 @@ def submit(mode, user_format, file=None, seq=None, skipPDB=True, email=None, nam
     :param str name: Job name.
     :param silent: Print information about job submission.
     :type silent: :py:obj:`True` or :py:obj:`False`
-    :return: None
-    :rtype: :py:obj:`None`
+    :return: Response.
+    :rtype: requests.Response
     """
     rest_format = resolve_rest_format(mode=mode, user_format=user_format)
     query = create_jpred_query(rest_format=rest_format, file=file, seq=seq,
@@ -179,8 +179,8 @@ def status(job_id, results_dir_path=None, extract=False, silent=False):
     :type extract: :py:obj:`True` or :py:obj:`False`
     :param silent: Print information about job status.
     :type silent: :py:obj:`True` or :py:obj:`False`
-    :return: None
-    :rtype: :py:obj:`None`
+    :return: Response.
+    :rtype: requests.Response
     """
     if not silent:
         print("Your job status will be checked with the following parameters:")
@@ -233,7 +233,6 @@ def get_results(job_id, results_dir_path=None, extract=False, silent=False):
     """
     if results_dir_path is None:
         results_dir_path = os.path.join(os.getcwd(), job_id)
-
     return status(job_id=job_id, results_dir_path=results_dir_path, extract=extract, silent=silent)
 
 
@@ -244,10 +243,9 @@ def quota(email, host=HOST, suffix="quota"):
     :param str email: E-mail address.
     :param str host: Jpred host address.
     :param str suffix: Host address suffix.
-    :return: None
-    :rtype: :py:obj:`None`
+    :return: Response.
+    :rtype: requests.Response
     """
     quota_url = "{}/{}/{}".format(host, suffix, email)
     response = requests.get(quota_url)
-    print(response.text)
     return response
