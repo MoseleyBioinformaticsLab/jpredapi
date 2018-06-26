@@ -11,14 +11,10 @@ import requests
 from retrying import retry
 
 
-JPRED4 = "http://www.compbio.dundee.ac.uk/jpred4"
-HOST = "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest"
-VERSION = "1.5.0"
 WAIT_INTERVAL = 60000  # 60000 milliseconds = 60 seconds
 
 
-def check_version(host="http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest",
-                   suffix="version"):
+def check_version(host="http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest", suffix="version"):
     """Check version of Jpred REST interface.
 
     :param str host: Jpred host address.
@@ -32,7 +28,7 @@ def check_version(host="http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest",
     return version
 
 
-def quota(email, host=HOST, suffix="quota"):
+def quota(email, host="http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest", suffix="quota"):
     """Check how many jobs you have already submitted on a given day
     (out of 1000 maximum allowed jobs per user per day).
 
@@ -47,7 +43,8 @@ def quota(email, host=HOST, suffix="quota"):
     return response
 
 
-def submit(mode, user_format, file=None, seq=None, skipPDB=True, email=None, name=None, silent=False):
+def submit(mode, user_format, file=None, seq=None, skipPDB=True, email=None, name=None, silent=False,
+           host="http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest"):
     """Submit job to Jpred server.
 
     :param str mode: Submission mode, possible values: `single`, `batch`, `msa`.
@@ -67,7 +64,7 @@ def submit(mode, user_format, file=None, seq=None, skipPDB=True, email=None, nam
     query = _create_jpred_query(rest_format=rest_format, file=file, seq=seq,
                                 skipPDB=skipPDB, email=email, name=name, silent=silent)
 
-    response = requests.post("{}/{}".format(HOST, "job"),
+    response = requests.post("{}/{}".format(host, "job"),
                              data=query.encode("utf-8"),
                              headers={"Content-type": "text/txt"})
 
@@ -91,7 +88,9 @@ def submit(mode, user_format, file=None, seq=None, skipPDB=True, email=None, nam
 
 
 @retry(wait_fixed=WAIT_INTERVAL)
-def status(job_id, results_dir_path=None, extract=False, silent=False):
+def status(job_id, results_dir_path=None, extract=False, silent=False,
+           host="http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest",
+           jpred4="http://www.compbio.dundee.ac.uk/jpred4"):
     """Check status of submitted job.
 
     :param str job_id: Job id.
@@ -100,6 +99,8 @@ def status(job_id, results_dir_path=None, extract=False, silent=False):
     :type extract: :py:obj:`True` or :py:obj:`False`
     :param silent: Print information about job status.
     :type silent: :py:obj:`True` or :py:obj:`False`
+    :param str host: Jpred host address.
+    :param str jpred4: Address for results retrieval.
     :return: Response.
     :rtype: requests.Response
     """
@@ -108,7 +109,7 @@ def status(job_id, results_dir_path=None, extract=False, silent=False):
         print("Job id:", job_id)
         print("Get results:", bool(results_dir_path))
 
-    job_url = "{}/{}/{}/{}".format(HOST, "job", "id", job_id)
+    job_url = "{}/{}/{}/{}".format(host, "job", "id", job_id)
     response = requests.get(job_url)
 
     if response.reason == "OK":
@@ -120,7 +121,7 @@ def status(job_id, results_dir_path=None, extract=False, silent=False):
                 if not os.path.exists(results_dir_path):
                     os.makedirs(results_dir_path)
 
-                archive_url = "{}/{}/{}/{}.{}".format(JPRED4, "results", job_id, job_id, "tar.gz")
+                archive_url = "{}/{}/{}/{}.{}".format(jpred4, "results", job_id, job_id, "tar.gz")
                 archive_path = os.path.join(results_dir_path, "{}.{}".format(job_id, "tar.gz"))
 
                 archive_response = requests.get(archive_url, stream=True)
@@ -140,7 +141,9 @@ def status(job_id, results_dir_path=None, extract=False, silent=False):
     return response
 
 
-def get_results(job_id, results_dir_path=None, extract=False, silent=False):
+def get_results(job_id, results_dir_path=None, extract=False, silent=False,
+                host="http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest",
+                jpred4="http://www.compbio.dundee.ac.uk/jpred4"):
     """Download results from Jpred server.
 
     :param str job_id: Job id.
@@ -149,12 +152,14 @@ def get_results(job_id, results_dir_path=None, extract=False, silent=False):
     :type extract: :py:obj:`True` or :py:obj:`False`
     :param silent: Print information.
     :type silent: :py:obj:`True` or :py:obj:`False`
+    :param str host: Jpred host address.
+    :param str jpred4: Address for results retrieval.
     :return: None
     :rtype: :py:obj:`None`
     """
     if results_dir_path is None:
         results_dir_path = os.path.join(os.getcwd(), job_id)
-    return status(job_id=job_id, results_dir_path=results_dir_path, extract=extract, silent=silent)
+    return status(job_id=job_id, results_dir_path=results_dir_path, extract=extract, silent=silent, host=host, jpred4=jpred4)
 
 
 def _resolve_rest_format(mode, user_format):

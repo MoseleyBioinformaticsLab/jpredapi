@@ -39,8 +39,6 @@ from . import api
 def cli(cmdargs):
     """jpredapi command-line interface processor."""
 
-    api.HOST = cmdargs["--rest"]
-    api.JPRED4 = cmdargs["--jpred4"]
     api.WAIT_INTERVAL = float(cmdargs["--wait_interval"]) * 1000  # convert from seconds to milliseconds
 
     if cmdargs["submit"]:
