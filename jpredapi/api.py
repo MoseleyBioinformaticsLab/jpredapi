@@ -17,7 +17,8 @@ VERSION = "1.5.0"
 WAIT_INTERVAL = 60000  # 60000 milliseconds = 60 seconds
 
 
-def _check_version(host=HOST, suffix="version"):
+def _check_version(host="http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest",
+                   suffix="version"):
     """Check version of Jpred REST interface.
 
     :param str host: Jpred host address.
@@ -31,21 +32,13 @@ def _check_version(host=HOST, suffix="version"):
     return version
 
 
-def submit(mode, user_format, file=None, seq=None, skipPDB=True, email=None, name=None, silent=False):
-    """Submit job to Jpred server.
-
+def resolve_rest_format(mode, user_format):
+    """Resolve format of submission to Jpred REST interface based on provided mode and user format.
+    
     :param str mode: Submission mode, possible values: `single`, `batch`, `msa`.
     :param str user_format: Submission format, possible values: `raw`, `fasta`, `msf`, `blc`.
-    :param str file: Filename of a file with the job input (sequence or msa).
-    :param str seq: Amino acid sequence passed as string of single-letter code without spaces, e.g. --seq=ATWFGTHY
-    :param skipPDB: PDB check will not be performed (True), otherwise perform PDB check (False).
-    :type skipPDB: :py:obj:`True` or :py:obj:`False`
-    :param str email: E-mail address.
-    :param str name: Job name.
-    :param silent: Print information about job submission.
-    :type silent: :py:obj:`True` or :py:obj:`False`
-    :return: None
-    :rtype: :py:obj:`None`
+    :return: Format for REST interface.
+    :rtype: :py:class:`str`
     """
     if user_format == "raw" and mode == "single":
         rest_format = "seq"
@@ -67,6 +60,27 @@ def submit(mode, user_format, file=None, seq=None, skipPDB=True, email=None, nam
                                 --mode=msa    --format=msf
                                 --mode=msa    --format=blc
                                 --mode=batch  --format=fasta""")
+    return rest_format
+
+
+def submit(mode, user_format, file=None, seq=None, skipPDB=True, email=None, name=None, silent=False):
+    """Submit job to Jpred server.
+
+    :param str mode: Submission mode, possible values: `single`, `batch`, `msa`.
+    :param str user_format: Submission format, possible values: `raw`, `fasta`, `msf`, `blc`.
+    :param str file: Filename of a file with the job input (sequence or msa).
+    :param str seq: Amino acid sequence passed as string of single-letter code without spaces, e.g. --seq=ATWFGTHY
+    :param skipPDB: PDB check will not be performed (True), otherwise perform PDB check (False).
+    :type skipPDB: :py:obj:`True` or :py:obj:`False`
+    :param str email: E-mail address.
+    :param str name: Job name.
+    :param silent: Print information about job submission.
+    :type silent: :py:obj:`True` or :py:obj:`False`
+    :return: None
+    :rtype: :py:obj:`None`
+    """
+    rest_format = resolve_rest_format(mode=mode, user_format=user_format)
+
 
     if file is None and seq is None:
         raise ValueError("""Neither input sequence nor input file are defined.
@@ -135,6 +149,8 @@ def submit(mode, user_format, file=None, seq=None, skipPDB=True, email=None, nam
     else:
         print(response.reason)
 
+    return response
+
 
 @retry(wait_fixed=WAIT_INTERVAL)
 def status(job_id, results_dir_path=None, extract=False, silent=False):
@@ -183,6 +199,8 @@ def status(job_id, results_dir_path=None, extract=False, silent=False):
     else:
         response.raise_for_status()
 
+    return response
+
 
 def get_results(job_id, results_dir_path=None, extract=False, silent=False):
     """Download results from Jpred server.
@@ -199,7 +217,7 @@ def get_results(job_id, results_dir_path=None, extract=False, silent=False):
     if results_dir_path is None:
         results_dir_path = os.path.join(os.getcwd(), job_id)
 
-    status(job_id=job_id, results_dir_path=results_dir_path, extract=extract, silent=silent)
+    return status(job_id=job_id, results_dir_path=results_dir_path, extract=extract, silent=silent)
 
 
 def quota(email, host=HOST, suffix="quota"):
@@ -215,3 +233,4 @@ def quota(email, host=HOST, suffix="quota"):
     quota_url = "{}/{}/{}".format(host, suffix, email)
     response = requests.get(quota_url)
     print(response.text)
+    return response
