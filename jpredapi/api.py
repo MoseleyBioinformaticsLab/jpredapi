@@ -22,7 +22,7 @@ def _check_version(host="http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest",
     """Check version of Jpred REST interface.
 
     :param str host: Jpred host address.
-    :param str suffix: Host dddress suffix.
+    :param str suffix: Host address suffix.
     :return: Version of Jpred REST API.
     :rtype: :py:class:`str`
     """
