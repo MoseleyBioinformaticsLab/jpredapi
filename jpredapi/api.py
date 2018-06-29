@@ -12,6 +12,7 @@ from retrying import retry
 
 
 WAIT_INTERVAL = 60000  # 60000 milliseconds = 60 seconds
+MAX_ATTEMPTS = 10
 
 
 def check_version(host="http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest", suffix="version"):
@@ -87,7 +88,7 @@ def submit(mode, user_format, file=None, seq=None, skipPDB=True, email=None, nam
     return response
 
 
-@retry(wait_fixed=WAIT_INTERVAL)
+@retry(wait_fixed=WAIT_INTERVAL, stop_max_attempt_number=MAX_ATTEMPTS)
 def status(job_id, results_dir_path=None, extract=False, silent=False,
            host="http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest",
            jpred4="http://www.compbio.dundee.ac.uk/jpred4"):

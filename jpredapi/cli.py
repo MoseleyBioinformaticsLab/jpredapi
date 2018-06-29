@@ -41,6 +41,7 @@ def cli(cmdargs):
     """jpredapi command-line interface processor."""
 
     api.WAIT_INTERVAL = float(cmdargs["--wait"]) * 1000  # convert from seconds to milliseconds
+    api.MAX_ATTEMPTS = int(cmdargs["--attempts"])
 
     if cmdargs["submit"]:
         api.submit(mode=cmdargs["--mode"],
