@@ -11,12 +11,13 @@ Usage:
     jpredapi status (--jobid=<id>) [--results=<path>] [--wait=<interval>] [--attempts=<max>] [--rest=<address>] [--jpred4=<address>] [--extract] [--silent]
     jpredapi get_results (--jobid=<id>) [--results=<path>] [--wait=<interval>] [--attempts=<max>] [--rest=<address>] [--jpred4=<address>] [--extract] [--silent]
     jpredapi quota (--email=<name@domain.com>)
+    jpredapi check_rest_version [--rest=<address>]
     jpredapi -h | --help
     jpredapi -v | --version
 
 Options:
     -h, --help                 Show this help message.
-    -v, --version              Show jpredapi version.
+    -v, --version              Show jpredapi package version.
     --silent                   Do not print messages.
     --extract                  Extract results tar.gz archive.
     --skipPDB                  PDB check.
@@ -73,3 +74,6 @@ def cli(cmdargs):
     elif cmdargs["quota"]:
         api.quota(email=cmdargs["--email"],
                   host=cmdargs["--host"])
+
+    elif cmdargs["check_rest_version"]:
+        api.check_rest_version(host=cmdargs["--rest"], suffix="version")
