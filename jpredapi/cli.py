@@ -40,7 +40,7 @@ from . import api
 def cli(cmdargs):
     """jpredapi command-line interface processor."""
 
-    api.WAIT_INTERVAL = float(cmdargs["--wait_interval"]) * 1000  # convert from seconds to milliseconds
+    api.WAIT_INTERVAL = float(cmdargs["--wait"]) * 1000  # convert from seconds to milliseconds
 
     if cmdargs["submit"]:
         api.submit(mode=cmdargs["--mode"],
@@ -54,16 +54,16 @@ def cli(cmdargs):
                    host=cmdargs["--rest"])
 
     elif cmdargs["status"]:
-        api.status(job_id=cmdargs["--job_id"],
-                   results_dir_path=cmdargs["--results_dir"],
+        api.status(job_id=cmdargs["--jobid"],
+                   results_dir_path=cmdargs["--results"],
                    extract=cmdargs["--extract"],
                    silent=cmdargs["--silent"],
                    host=cmdargs["--rest"],
                    jpred4=cmdargs["--jpred4"])
 
     elif cmdargs["get_results"]:
-        api.get_results(job_id=cmdargs["--job_id"],
-                        results_dir_path=cmdargs["--results_dir"],
+        api.get_results(job_id=cmdargs["--jobid"],
+                        results_dir_path=cmdargs["--results"],
                         extract=cmdargs["--extract"],
                         silent=cmdargs["--silent"],
                         host=cmdargs["--rest"],
