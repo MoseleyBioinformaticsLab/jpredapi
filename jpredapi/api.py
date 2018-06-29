@@ -15,12 +15,12 @@ WAIT_INTERVAL = 60000  # 60000 milliseconds = 60 seconds
 MAX_ATTEMPTS = 10
 
 
-def check_version(host="http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest", suffix="version"):
-    """Check version of Jpred REST interface.
+def check_rest_version(host="http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest", suffix="version"):
+    """Check version of JPred REST interface.
 
-    :param str host: Jpred host address.
+    :param str host: JPred host address.
     :param str suffix: Host address suffix.
-    :return: Version of Jpred REST API.
+    :return: Version of JPred REST API.
     :rtype: :py:class:`str`
     """
     version_url = "{}/{}".format(host, suffix)
@@ -34,7 +34,7 @@ def quota(email, host="http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest", suf
     (out of 1000 maximum allowed jobs per user per day).
 
     :param str email: E-mail address.
-    :param str host: Jpred host address.
+    :param str host: JPred host address.
     :param str suffix: Host address suffix.
     :return: Response.
     :rtype: requests.Response
@@ -46,17 +46,17 @@ def quota(email, host="http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest", suf
 
 def submit(mode, user_format, file=None, seq=None, skipPDB=True, email=None, name=None, silent=False,
            host="http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest"):
-    """Submit job to Jpred server.
+    """Submit job to JPred REST API.
 
     :param str mode: Submission mode, possible values: `single`, `batch`, `msa`.
     :param str user_format: Submission format, possible values: `raw`, `fasta`, `msf`, `blc`.
-    :param str file: Filename of a file with the job input (sequence or msa).
-    :param str seq: Amino acid sequence passed as string of single-letter code without spaces, e.g. --seq=ATWFGTHY
-    :param skipPDB: PDB check will not be performed (True), otherwise perform PDB check (False).
+    :param str file: File path to a file with the job input (sequence or msa).
+    :param str seq: Alternatively, amino acid sequence passed as string of single-letter code without spaces, e.g. --seq=ATWFGTHY
+    :param skipPDB: Should the PDB query be skipped?
     :type skipPDB: :py:obj:`True` or :py:obj:`False`
-    :param str email: E-mail address.
-    :param str name: Job name.
-    :param silent: Print information about job submission.
+    :param str email: For a batch job submission, where to send the results?
+    :param str name: A name for the job.
+    :param silent: Should the work be done silently?
     :type silent: :py:obj:`True` or :py:obj:`False`
     :return: Response.
     :rtype: requests.Response
@@ -92,16 +92,16 @@ def submit(mode, user_format, file=None, seq=None, skipPDB=True, email=None, nam
 def status(job_id, results_dir_path=None, extract=False, silent=False,
            host="http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest",
            jpred4="http://www.compbio.dundee.ac.uk/jpred4"):
-    """Check status of submitted job.
+    """Check status of the submitted job.
 
     :param str job_id: Job id.
     :param str results_dir_path: Directory path where to save results if job is finished.
     :param extract: Extract (True) or not (False) results into directory.
     :type extract: :py:obj:`True` or :py:obj:`False`
-    :param silent: Print information about job status.
+    :param silent: Should the work be done silently?
     :type silent: :py:obj:`True` or :py:obj:`False`
-    :param str host: Jpred host address.
-    :param str jpred4: Address for results retrieval.
+    :param str host: JPred host address.
+    :param str jpred4: JPred address for results retrieval.
     :return: Response.
     :rtype: requests.Response
     """
@@ -145,18 +145,18 @@ def status(job_id, results_dir_path=None, extract=False, silent=False,
 def get_results(job_id, results_dir_path=None, extract=False, silent=False,
                 host="http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest",
                 jpred4="http://www.compbio.dundee.ac.uk/jpred4"):
-    """Download results from Jpred server.
+    """Download results from JPred server.
 
     :param str job_id: Job id.
-    :param str results_dir_path: Path where to save results.
-    :param extract: Extract from tar.gz archive.
+    :param str results_dir_path: Directory path where to save results if job is finished.
+    :param extract: Extract (True) or not (False) results into directory.
     :type extract: :py:obj:`True` or :py:obj:`False`
-    :param silent: Print information.
+    :param silent: Should the work be done silently?
     :type silent: :py:obj:`True` or :py:obj:`False`
-    :param str host: Jpred host address.
-    :param str jpred4: Address for results retrieval.
-    :return: None
-    :rtype: :py:obj:`None`
+    :param str host: JPred host address.
+    :param str jpred4: JPred address for results retrieval.
+    :return: Response.
+    :rtype: requests.Response
     """
     if results_dir_path is None:
         results_dir_path = os.path.join(os.getcwd(), job_id)
@@ -164,11 +164,11 @@ def get_results(job_id, results_dir_path=None, extract=False, silent=False,
 
 
 def _resolve_rest_format(mode, user_format):
-    """Resolve format of submission to Jpred REST interface based on provided mode and user format.
+    """Resolve format of submission to JPred REST interface based on provided mode and user format.
 
     :param str mode: Submission mode, possible values: `single`, `batch`, `msa`.
     :param str user_format: Submission format, possible values: `raw`, `fasta`, `msf`, `blc`.
-    :return: Format for Jpred REST interface.
+    :return: Format for JPred REST interface.
     :rtype: :py:class:`str`
     """
     if user_format == "raw" and mode == "single":
@@ -195,16 +195,16 @@ def _resolve_rest_format(mode, user_format):
 
 
 def _create_jpred_query(rest_format, file=None, seq=None, skipPDB=True, email=None, name=None, silent=False):
-    """Creates query string to be submitted to Jpred server.
+    """Create query string to be submitted to Jpred server.
 
     :param str rest_format: Format for Jpred REST interface.
-    :param str file: Filename of a file with the job input (sequence or msa).
-    :param str seq: Amino acid sequence passed as string of single-letter code without spaces, e.g. --seq=ATWFGTHY
-    :param skipPDB: PDB check will not be performed (True), otherwise perform PDB check (False).
+    :param str file: File path to a file with the job input (sequence or msa).
+    :param str seq: Alternatively, amino acid sequence passed as string of single-letter code without spaces, e.g. --seq=ATWFGTHY
+    :param skipPDB: Should the PDB query be skipped?
     :type skipPDB: :py:obj:`True` or :py:obj:`False`
-    :param str email: E-mail address.
-    :param str name: Job name.
-    :param silent: Print information about job submission.
+    :param str email: For a batch job submission, where to send the results?
+    :param str name: A name for the job.
+    :param silent: Should the work be done silently?
     :type silent: :py:obj:`True` or :py:obj:`False`
     :return: Query string.
     :rtype: :py:class:`str`
