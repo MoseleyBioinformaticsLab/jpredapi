@@ -69,7 +69,7 @@ def submit(mode, user_format, file=None, seq=None, skipPDB=True, email=None, nam
                              data=query.encode("utf-8"),
                              headers={"Content-type": "text/txt"})
 
-    if response.reason == "Accepted":
+    if response.reason == "Accepted" and "Created JPred job" in response.text:
         if rest_format != "batch":
             result_url = response.headers['Location']
             job_id = re.search(r"(jp_.*)$", result_url).group(1)
@@ -81,9 +81,9 @@ def submit(mode, user_format, file=None, seq=None, skipPDB=True, email=None, nam
                 print("Created JPred job with jobid:", job_id)
 
         elif rest_format == "batch":
-            print(response.content)
+            print(response.text)
     else:
-        print(response.reason)
+        print(response.text, response.reason)
 
     return response
 
@@ -220,6 +220,8 @@ def _create_jpred_query(rest_format, file=None, seq=None, skipPDB=True, email=No
         with open(file, "r") as infile:
             sequence_query = infile.read()
     elif seq is not None:
+        # assert len(list(seq)) >= 20, "Your sequence is shorter than the JPred limit of 20 residues. " \
+        #                              "JPred is not able to make predictions for such small proteins."
         sequence_query = ">query\n{}".format(seq)
     else:
         sequence_query = ""
