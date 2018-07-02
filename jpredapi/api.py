@@ -69,7 +69,7 @@ def submit(mode, user_format, file=None, seq=None, skipPDB=True, email=None, nam
                              data=query.encode("utf-8"),
                              headers={"Content-type": "text/txt"})
 
-    if response.reason == "Accepted" and "Created JPred job" in response.text:
+    if response.status_code == 202 and "created jred job" in response.text.lower():
         if rest_format != "batch":
             result_url = response.headers['Location']
             job_id = re.search(r"(jp_.*)$", result_url).group(1)
@@ -116,7 +116,7 @@ def status(job_id, results_dir_path=None, extract=False, silent=False,
     if response.reason == "OK":
         print(response.text)
 
-        if "finished" in response.text:
+        if "finished" in response.text.lower():
             if results_dir_path is not None:
                 results_dir_path = os.path.join(results_dir_path, job_id)
                 if not os.path.exists(results_dir_path):
