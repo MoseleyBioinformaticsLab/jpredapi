@@ -6,7 +6,7 @@ import jpredapi
 SKIP_REAL = True
 
 
-def test_check_rest_version_real():
+def test_check_rest_version():
     version = 'v.1.5'
     with patch('jpredapi.check_rest_version') as mock_version:
         mock_version = 'v.1.5'
