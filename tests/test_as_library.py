@@ -19,6 +19,18 @@ def test_check_rest_version_real():
     assert version == 'v.1.5'
 
 
+def test_quota():
+    with patch('jpredapi.quota') as response:
+        response.status_code = 200
+    assert response.status_code == 200
+
+
+@pytest.mark.skipif(SKIP_REAL, reason="Skipping tests that hit the real JPred API server.")
+def test_quota_real():
+    response = jpredapi.quota(email="name@domain.com")
+    assert response.status_code == 200
+
+
 @pytest.mark.parametrize("mode,user_format,file,seq,skipPDB,email,name,silent,host", [
     ("single", "raw", None, "MQVWPIEGIKKFETLSYLPP", True, None, None, False, "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest"),
     ("single", "raw", "tests/example_data/single_raw.example", None, True, None, None, False, "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest"),
