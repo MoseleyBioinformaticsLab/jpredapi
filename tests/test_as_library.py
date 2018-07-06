@@ -1,5 +1,4 @@
 from unittest.mock import patch
-from unittest import skipIf
 import pytest
 import jpredapi
 
@@ -27,7 +26,7 @@ def test_submit(mode, user_format, file, seq, skipPDB, email, name, silent, host
         assert response.status_code == 202 and "Created JPred job" or "You have successfully submitted" in response.text
 
 
-@skipIf(SKIP_REAL, "Skipping tests that hit the real JPred API server.")
+@pytest.mark.skipif(SKIP_REAL, reason="Skipping tests that hit the real JPred API server.")
 @pytest.mark.parametrize("mode,user_format,file,seq,skipPDB,email,name,silent,host", [
     ("single", "raw", None, "MQVWPIEGIKKFETLSYLPP", True, None, None, False, "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest"),
     ("single", "raw", "tests/example_data/single_raw.example", None, True, None, None, False, "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest"),
