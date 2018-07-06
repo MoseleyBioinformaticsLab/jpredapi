@@ -6,6 +6,19 @@ import jpredapi
 SKIP_REAL = True
 
 
+def test_check_rest_version_real():
+    version = 'v.1.5'
+    with patch('jpredapi.check_rest_version') as mock_version:
+        mock_version = 'v.1.5'
+    assert mock_version == version
+
+
+@pytest.mark.skipif(SKIP_REAL, reason="Skipping tests that hit the real JPred API server.")
+def test_check_rest_version_real():
+    version = jpredapi.check_rest_version()
+    assert version == 'v.1.5'
+
+
 @pytest.mark.parametrize("mode,user_format,file,seq,skipPDB,email,name,silent,host", [
     ("single", "raw", None, "MQVWPIEGIKKFETLSYLPP", True, None, None, False, "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest"),
     ("single", "raw", "tests/example_data/single_raw.example", None, True, None, None, False, "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest"),
