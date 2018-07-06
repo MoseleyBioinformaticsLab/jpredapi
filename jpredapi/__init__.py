@@ -36,6 +36,7 @@ from .api import submit
 from .api import status
 from .api import get_results
 from .api import quota
+from .api import check_rest_version
 
 
 __version__ = "1.5.2"
