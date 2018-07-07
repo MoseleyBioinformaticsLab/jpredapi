@@ -21,8 +21,8 @@ Command Line Interface
                        [--rest=<address>] [--jpred4=<address>] [--extract] [--silent]
        jpredapi get_results (--jobid=<id>) [--results=<path>] [--wait=<interval>] [--attempts=<max>]
                             [--rest=<address>] [--jpred4=<address>] [--extract] [--silent]
-       jpredapi quota (--email=<name@domain.com>)
-       jpredapi check_rest_version [--rest=<address>]
+       jpredapi quota (--email=<name@domain.com>) [--silent]
+       jpredapi check_rest_version [--rest=<address>] [--silent]
        jpredapi -h | --help
        jpredapi -v | --version
 
