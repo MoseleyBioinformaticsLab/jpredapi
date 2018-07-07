@@ -10,7 +10,7 @@ Usage:
     jpredapi submit (--mode=<mode> --format=<format>) (--file=<filename> | --seq=<sequence>) [--email=<name@domain.com>] [--name=<name>] [--rest=<address>] [--skipPDB] [--silent]
     jpredapi status (--jobid=<id>) [--results=<path>] [--wait=<interval>] [--attempts=<max>] [--rest=<address>] [--jpred4=<address>] [--extract] [--silent]
     jpredapi get_results (--jobid=<id>) [--results=<path>] [--wait=<interval>] [--attempts=<max>] [--rest=<address>] [--jpred4=<address>] [--extract] [--silent]
-    jpredapi quota (--email=<name@domain.com>)
+    jpredapi quota (--email=<name@domain.com>) [--rest=<address>]
     jpredapi check_rest_version [--rest=<address>]
     jpredapi -h | --help
     jpredapi -v | --version
@@ -73,7 +73,7 @@ def cli(cmdargs):
 
     elif cmdargs["quota"]:
         api.quota(email=cmdargs["--email"],
-                  host=cmdargs["--host"])
+                  host=cmdargs["--rest"])
 
     elif cmdargs["check_rest_version"]:
         api.check_rest_version(host=cmdargs["--rest"], suffix="version")
