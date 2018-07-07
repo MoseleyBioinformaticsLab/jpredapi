@@ -15,7 +15,7 @@ WAIT_INTERVAL = 60000  # 60000 milliseconds = 60 seconds
 MAX_ATTEMPTS = 10
 
 
-def check_rest_version(host="http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest", suffix="version"):
+def check_rest_version(host="http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest", suffix="version", silent=False):
     """Check version of JPred REST interface.
 
     :param str host: JPred host address.
@@ -26,10 +26,12 @@ def check_rest_version(host="http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest
     version_url = "{}/{}".format(host, suffix)
     response = requests.get(version_url)
     version = re.search(r"VERSION=(v\.[0-9]*.[0-9]*)", response.text).group(1)
+    if not silent:
+         print(version)
     return version
 
 
-def quota(email, host="http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest", suffix="quota"):
+def quota(email, host="http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest", suffix="quota", silent=False):
     """Check how many jobs you have already submitted on a given day
     (out of 1000 maximum allowed jobs per user per day).
 
@@ -41,6 +43,8 @@ def quota(email, host="http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest", suf
     """
     quota_url = "{}/{}/{}".format(host, suffix, email)
     response = requests.get(quota_url)
+    if not silent:
+        print(response.text)
     return response
 
 
