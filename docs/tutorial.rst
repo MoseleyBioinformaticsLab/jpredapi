@@ -225,7 +225,7 @@ Check single job status using ``job_id``:
 
    .. code:: bash
 
-      python3 -m jpredapi status --job_id=jp_K46D05A
+      python3 -m jpredapi status --jobid=jp_K46D05A
 
 
 Check single job status using ``job_id`` and retrieve results:
@@ -233,14 +233,14 @@ Check single job status using ``job_id`` and retrieve results:
 
    .. code:: bash
 
-      python3 -m jpredapi status --job_id=jp_K46D05A --results_dir=jpred_sspred/results
+      python3 -m jpredapi status --jobid=jp_K46D05A --results=jpred_sspred/results
 
 Check single job status using ``job_id``, retrieve results, and decompress archive:
 ***********************************************************************************
 
    .. code:: bash
 
-      python3 -m jpredapi status --job_id=jp_K46D05A --results_dir=jpred_sspred/results --extract
+      python3 -m jpredapi status --jobid=jp_K46D05A --results=jpred_sspred/results --extract
 
 
 Retrieve results from JPred server
@@ -252,7 +252,7 @@ Retrieve results using ``job_id``:
 
    .. code:: bash
 
-      python3 -m jpredapi get_results --job_id=jp_K46D05A --results_dir=jpred_sspred/results
+      python3 -m jpredapi get_results --jobid=jp_K46D05A --results=jpred_sspred/results
 
 
 Retrieve results using ``job_id`` and decompress archive:
@@ -260,7 +260,7 @@ Retrieve results using ``job_id`` and decompress archive:
 
    .. code:: bash
 
-      python3 -m jpredapi get_results --job_id=jp_K46D05A --results_dir=jpred_sspred/results --extract
+      python3 -m jpredapi get_results --jobid=jp_K46D05A --results=jpred_sspred/results --extract
 
 
 Check how many jobs you have already submitted on a given day:
