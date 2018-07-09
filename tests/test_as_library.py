@@ -2,19 +2,20 @@
 # -*- coding: utf-8 -*-
 
 import re
+import os
 from unittest.mock import patch
 import pytest
 import jpredapi
 
 
-SKIP_REAL_JPREDAPI = True
+SKIP_REAL_JPREDAPI = bool(int(os.getenv("SKIP_REAL_JPREDAPI", True)))
 
 
 def test_check_rest_version():
-    version = 'v.1.5'
-    with patch('jpredapi.check_rest_version') as mock_version:
-        mock_version = 'v.1.5'
-    assert mock_version == version
+    version = "v.1.5"
+    with patch("jpredapi.check_rest_version") as mock_version:
+        mock_version.return_value.version = "v.1.5"
+    assert mock_version.return_value.version == version
 
 
 @pytest.mark.skipif(SKIP_REAL_JPREDAPI, reason="Skipping tests that hit the real JPred API server.")
@@ -25,8 +26,8 @@ def test_check_rest_version_real():
 
 def test_quota():
     with patch('jpredapi.quota') as response:
-        response.status_code = 200
-    assert response.status_code == 200
+        response.return_value.status_code = 200
+    assert response.return_value.status_code == 200
 
 
 @pytest.mark.skipif(SKIP_REAL_JPREDAPI, reason="Skipping tests that hit the real JPred API server.")

@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import os
 import subprocess
 import pytest
 
 
-SKIP_REAL_JPREDAPI = True
+SKIP_REAL_JPREDAPI = bool(int(os.getenv("SKIP_REAL_JPREDAPI", True)))
 
 
 @pytest.mark.skipif(SKIP_REAL_JPREDAPI, reason="Skipping tests that hit the real JPred API server.")
