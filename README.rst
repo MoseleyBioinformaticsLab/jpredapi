@@ -19,9 +19,9 @@ jpredapi
 
 
 The `jpredapi` package provides a simple Python interface for submitting
-and retrieving jobs from JPRED: A Protein Secondary Structure Prediction Server
-(JPRED_).
-
+and retrieving jobs from JPred: A Protein Secondary Structure Prediction Server
+(JPred_).
+00
 This is unofficial Python port of `jpredapi` perl script that can be found here:
 http://www.compbio.dundee.ac.uk/jpred4/api.shtml
 
@@ -63,7 +63,7 @@ This package is distributed under the BSD_ `license`.
 
 
 .. _pip: https://pip.pypa.io/
-.. _JPRED: http://www.compbio.dundee.ac.uk/jpred/
+.. _JPred: http://www.compbio.dundee.ac.uk/jpred/
 
 .. _GitHub: https://github.com/MoseleyBioinformaticsLab/jpredapi
 .. _ReadTheDocs: http://jpredapi.readthedocs.io/
