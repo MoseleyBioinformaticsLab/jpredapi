@@ -74,6 +74,7 @@ def cli(cmdargs):
     elif cmdargs["quota"]:
         api.quota(email=cmdargs["--email"],
                   host=cmdargs["--rest"],
+                  suffix="quota",
                   silent=cmdargs["--silent"])
 
     elif cmdargs["check_rest_version"]:
