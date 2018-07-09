@@ -49,7 +49,7 @@ Command Line Interface
 Print jpredapi help message
 ---------------------------
 
-   .. code:: bash
+   .. code-block:: none
 
       $ python3 -m jpredapi --help
 
@@ -57,7 +57,7 @@ Print jpredapi help message
 Print jpredapi version
 ----------------------
 
-   .. code:: bash
+   .. code-block:: none
 
       $ python3 -m jpredapi --version
 
@@ -69,19 +69,19 @@ Submit jobs to JPred server
 Submit single sequence in ``raw`` format using ``--seq`` parameter:
 *******************************************************************
 
-   .. code:: bash
+   .. code-block:: none
 
       python3 -m jpredapi submit --mode=single --format=raw --seq=MQVWPIEGIKKFETLSYLPP
 
 Submit single sequence in ``raw`` format using ``--file`` parameter:
 ********************************************************************
 
-   .. code:: bash
+   .. code-block:: none
 
       python3 -m jpredapi submit --mode=single --format=raw --file=tests/example_data/single_raw.example
 
 Content of ``single_raw.example`` file:
-   .. code:: bash
+   .. code-block:: none
 
       MQVWPIEGIKKFETLSYLPPLTVEDLLKQIEYLLRSKWVPCLEFSKVGFVYRENHRSPGYYDGRYWTMWKLPMFGCTDATQVLKELEEAKKAYPDAFVRIIGFDNVRQVQLISFIAYKPPGC
 
@@ -89,12 +89,12 @@ Content of ``single_raw.example`` file:
 Submit single sequence in ``fasta`` format using ``--file`` parameter:
 **********************************************************************
 
-   .. code:: bash
+   .. code-block:: none
 
       python3 -m jpredapi submit --mode=single --format=fasta --file=tests/example_data/single_raw.example
 
 Content of ``single_fasta.example`` file:
-   .. code:: bash
+   .. code-block:: none
 
       >my test sequence
       MQVWPIEGIKKFETLSYLPPLTVEDLLKQIEYLLRSKWVPCLEFSKVGFVYRENHRSPGYYDGRYWTMWKLPMFGCTDATQVLKELEEAKKAYPDAFVRIIGFDNVRQVQLISFIAYKPPGC
@@ -103,12 +103,12 @@ Content of ``single_fasta.example`` file:
 Submit multiple sequences in ``fasta`` format using ``--file`` parameter:
 *************************************************************************
 
-   .. code:: bash
+   .. code-block:: none
 
       python3 -m jpredapi submit --mode=batch --format=fasta --file=tests/example_data/batch_fasta.example --email=name@domain.com
 
 Content of ``batch_fasta.example`` file:
-   .. code:: bash
+   .. code-block:: none
 
       >my_seq1
       MKFLVLLFNILCLFPILGADELVMSPIPTTDVQPKVTFDINSEVSSGPLYLNPVEMAGVK
@@ -130,12 +130,12 @@ Content of ``batch_fasta.example`` file:
 Submit multiple sequence alignment files in ``fasta`` format:
 *************************************************************
 
-   .. code:: bash
+   .. code-block:: none
 
       python3 -m jpredapi submit --mode=msa --format=fasta --file=tests/example_data/msa_fasta.example --email=name@domain.com
 
 Content of ``msa_fasta.example`` file:
-   .. code:: bash
+   .. code-block:: none
 
       >QUERY_1
       MQVWPIEGIKKFETLSYLPPLTVEDLLKQIEYLLRSKWVPCLEFSKVGFVYRENHRSPGYYDGRYWTMWKLP
@@ -157,12 +157,12 @@ Content of ``msa_fasta.example`` file:
 Submit multiple sequence alignment files in ``msf`` format:
 ***********************************************************
 
-   .. code:: bash
+   .. code-block:: none
 
       python3 -m jpredapi submit --mode=msa --format=msf --file=tests/example_data/msa_msf.example --email=name@domain.com
 
 Content of ``msa_msf.example`` file:
-   .. code:: bash
+   .. code-block:: none
 
       /tmp/filelPdICy  MSF: 108  Type: N  January 01, 1776  12:00  Check: 2741 ..
 
@@ -192,12 +192,12 @@ Content of ``msa_msf.example`` file:
 Submit multiple sequence alignment files in ``blc`` format:
 ***********************************************************
 
-   .. code:: bash
+   .. code-block:: none
 
       python3 -m jpredapi submit --mode=msa --format=blc --file=tests/example_data/msa_blc.example --email=name@domain.com
 
 Content of ``msa_blc.example`` file:
-   .. code:: bash
+   .. code-block:: none
 
       >0_1a  Name
       >1_MA  Name
@@ -223,7 +223,7 @@ Check job status on JPred server
 Check single job status using ``job_id``:
 *****************************************
 
-   .. code:: bash
+   .. code-block:: none
 
       python3 -m jpredapi status --jobid=jp_K46D05A
 
@@ -231,14 +231,14 @@ Check single job status using ``job_id``:
 Check single job status using ``job_id`` and retrieve results:
 **************************************************************
 
-   .. code:: bash
+   .. code-block:: none
 
       python3 -m jpredapi status --jobid=jp_K46D05A --results=jpred_sspred/results
 
 Check single job status using ``job_id``, retrieve results, and decompress archive:
 ***********************************************************************************
 
-   .. code:: bash
+   .. code-block:: none
 
       python3 -m jpredapi status --jobid=jp_K46D05A --results=jpred_sspred/results --extract
 
@@ -250,7 +250,7 @@ Retrieve results from JPred server
 Retrieve results using ``job_id``:
 **********************************
 
-   .. code:: bash
+   .. code-block:: none
 
       python3 -m jpredapi get_results --jobid=jp_K46D05A --results=jpred_sspred/results
 
@@ -258,7 +258,7 @@ Retrieve results using ``job_id``:
 Retrieve results using ``job_id`` and decompress archive:
 *********************************************************
 
-   .. code:: bash
+   .. code-block:: none
 
       python3 -m jpredapi get_results --jobid=jp_K46D05A --results=jpred_sspred/results --extract
 
@@ -266,7 +266,7 @@ Retrieve results using ``job_id`` and decompress archive:
 Check how many jobs you have already submitted on a given day:
 **************************************************************
 
-   .. code:: bash
+   .. code-block:: none
 
       python3 -m jpredapi quota --email=name@domain.com
 
