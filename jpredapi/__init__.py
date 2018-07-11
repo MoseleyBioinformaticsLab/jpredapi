@@ -14,9 +14,10 @@ Usage example for command-line:
       python3 -m jpredapi --help
       python3 -m jpredapi --version
       python3 -m jpredapi submit --mode=single --format=raw --seq=MQVWPIEGIKKFETLSYLPP
-      python3 -m jpredapi status --job_id=jp_K46D05A
-      python3 -m jpredapi get_results --job_id=jp_K46D05A --results_dir=jpred_sspred/results
+      python3 -m jpredapi status --jobid=jp_K46D05A
+      python3 -m jpredapi get_results --jobid=jp_K46D05A --results=jpred_sspred/results
       python3 -m jpredapi quota --email=name@domain.com
+      python3 -m jpredapi check_rest_version
 
 Usage example for interactive Python shell:
 
@@ -29,6 +30,8 @@ Usage example for interactive Python shell:
    >>> jpredapi.get_results(job_id="jp_K46D05A", results_dir_path="jpred_sspred/results")
    >>>
    >>> jpredapi.quota(email="name@domain.com")
+   >>>
+   >>> jpredapi.check_rest_version()
    >>>
 """
 
