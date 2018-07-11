@@ -17,6 +17,10 @@ jpredapi
    :target: https://jpredapi.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation status
 
+.. image:: https://api.travis-ci.org/MoseleyBioinformaticsLab/jpredapi.svg?branch=master
+   :target: https://travis-ci.org/MoseleyBioinformaticsLab/jpredapi
+   :alt: Travis CI status
+
 
 The `jpredapi` package provides a simple Python interface for submitting
 and retrieving jobs from JPred: A Protein Secondary Structure Prediction Server
