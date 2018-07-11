@@ -3,9 +3,13 @@
 
 import re
 import os
-from unittest.mock import patch
 import pytest
 import jpredapi
+
+try:
+    from unittest.mock import patch
+except ImportError:
+    from mock import patch
 
 
 SKIP_REAL_JPREDAPI = bool(int(os.getenv("SKIP_REAL_JPREDAPI", True)))
