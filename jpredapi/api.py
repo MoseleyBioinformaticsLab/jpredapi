@@ -85,13 +85,13 @@ def submit(mode, user_format, file=None, seq=None, skipPDB=True, email=None, nam
             if not silent:
                 print("Created JPred job with jobid:", job_id)
                 print("You can check the status of the job using the following URL:", result_url)
-            else:
-                print("Created JPred job with jobid:", job_id)
 
         elif rest_format == "batch":
-            print(response.text)
+            if not silent:
+                print(response.text)
     else:
-        print(response.text, response.reason)
+        if not silent:
+            print(response.text, response.reason)
 
     return response
 
@@ -122,7 +122,8 @@ def status(job_id, results_dir_path=None, extract=False, silent=False,
     response = requests.get(job_url)
 
     if response.reason == "OK":
-        print(response.text)
+        if not silent:
+            print(response.text)
 
         if "finished" in response.text.lower():
             if results_dir_path is not None:
