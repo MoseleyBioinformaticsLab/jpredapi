@@ -20,6 +20,8 @@ def check_rest_version(host="http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest
 
     :param str host: JPred host address.
     :param str suffix: Host address suffix.
+    :param silent: Should the work be done silently?
+    :type silent: :py:obj:`True` or :py:obj:`False`
     :return: Version of JPred REST API.
     :rtype: :py:class:`str`
     """
@@ -38,6 +40,8 @@ def quota(email, host="http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest", suf
     :param str email: E-mail address.
     :param str host: JPred host address.
     :param str suffix: Host address suffix.
+    :param silent: Should the work be done silently?
+    :type silent: :py:obj:`True` or :py:obj:`False`
     :return: Response.
     :rtype: requests.Response
     """
@@ -199,9 +203,9 @@ def _resolve_rest_format(mode, user_format):
 
 
 def _create_jpred_query(rest_format, file=None, seq=None, skipPDB=True, email=None, name=None, silent=False):
-    """Create query string to be submitted to Jpred server.
+    """Create query string to be submitted to JPred server.
 
-    :param str rest_format: Format for Jpred REST interface.
+    :param str rest_format: Format for JPred REST interface.
     :param str file: File path to a file with the job input (sequence or msa).
     :param str seq: Alternatively, amino acid sequence passed as string of single-letter code without spaces, e.g. --seq=ATWFGTHY
     :param skipPDB: Should the PDB query be skipped?
