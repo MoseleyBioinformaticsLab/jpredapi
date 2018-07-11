@@ -75,15 +75,15 @@ def test_submit_real(mode, user_format, file, seq, skipPDB, email, name, silent,
     assert response.status_code == 202 and "Created JPred job" or "You have successfully submitted" in response.text
 
 
-@pytest.mark.parametrize("job_id,results_dir_path,extract,silent,host,jpred4", [
+@pytest.mark.parametrize("jobid,results_dir_path,extract,silent,host,jpred4", [
     ("jp_TEST", None, False, False, "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest", "http://www.compbio.dundee.ac.uk/jpred4"),
     ("jp_TEST", "jpred_results", False, False, "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest", "http://www.compbio.dundee.ac.uk/jpred4"),
     ("jp_TEST", "jpred_results", True, False, "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest", "http://www.compbio.dundee.ac.uk/jpred4")
 ])
-def test_status(job_id, results_dir_path, extract, silent, host, jpred4):
+def test_status(jobid, results_dir_path, extract, silent, host, jpred4):
     with patch("jpredapi.status") as mock_status:
         mock_status.return_value.status_code = 200
-        response = jpredapi.status(job_id=job_id, results_dir_path=results_dir_path, extract=extract,
+        response = jpredapi.status(jobid=jobid, results_dir_path=results_dir_path, extract=extract,
                                    silent=silent, host=host, jpred4=jpred4)
     assert response.status_code == 200
 
@@ -97,22 +97,22 @@ def test_status(job_id, results_dir_path, extract, silent, host, jpred4):
 def test_status_real(results_dir_path, extract, silent, host, jpred4):
     job_response = jpredapi.submit(mode="single", user_format="raw", seq="MQVWPIEGIKKFETLSYLPP")
     result_url = job_response.headers['Location']
-    job_id = re.search(r"(jp_.*)$", result_url).group(1)
+    jobid = re.search(r"(jp_.*)$", result_url).group(1)
 
-    response = jpredapi.status(job_id=job_id, results_dir_path=results_dir_path, extract=extract,
+    response = jpredapi.status(jobid=jobid, results_dir_path=results_dir_path, extract=extract,
                                silent=silent, host=host, jpred4=jpred4)
     assert response.status_code == 200
 
 
-@pytest.mark.parametrize("job_id,results_dir_path,extract,silent,host,jpred4", [
+@pytest.mark.parametrize("jobid,results_dir_path,extract,silent,host,jpred4", [
     ("jp_TEST", None, False, False, "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest", "http://www.compbio.dundee.ac.uk/jpred4"),
     ("jp_TEST", "jpred_results", False, False, "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest", "http://www.compbio.dundee.ac.uk/jpred4"),
     ("jp_TEST", "jpred_results", True, False, "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest", "http://www.compbio.dundee.ac.uk/jpred4")
 ])
-def test_get_results(job_id, results_dir_path, extract, silent, host, jpred4):
+def test_get_results(jobid, results_dir_path, extract, silent, host, jpred4):
     with patch("jpredapi.get_results") as mock_results:
         mock_results.return_value.status_code = 200
-        response = jpredapi.status(job_id=job_id, results_dir_path=results_dir_path, extract=extract,
+        response = jpredapi.status(jobid=jobid, results_dir_path=results_dir_path, extract=extract,
                                    silent=silent, host=host, jpred4=jpred4)
     assert response.status_code == 200
 
@@ -126,8 +126,8 @@ def test_get_results(job_id, results_dir_path, extract, silent, host, jpred4):
 def test_get_results_real(results_dir_path, extract, silent, host, jpred4):
     job_response = jpredapi.submit(mode="single", user_format="raw", seq="MQVWPIEGIKKFETLSYLPP")
     result_url = job_response.headers['Location']
-    job_id = re.search(r"(jp_.*)$", result_url).group(1)
+    jobid = re.search(r"(jp_.*)$", result_url).group(1)
 
-    response = jpredapi.get_results(job_id=job_id, results_dir_path=results_dir_path, extract=extract,
+    response = jpredapi.get_results(jobid=jobid, results_dir_path=results_dir_path, extract=extract,
                                     silent=silent, host=host, jpred4=jpred4)
     assert response.status_code == 200
