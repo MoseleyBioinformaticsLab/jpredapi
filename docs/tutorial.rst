@@ -228,15 +228,15 @@ Check single job status using ``job_id``:
       python3 -m jpredapi status --jobid=jp_K46D05A
 
 
-Check single job status using ``job_id`` and retrieve results:
-**************************************************************
+Check single job status using ``jobid`` and retrieve results:
+*************************************************************
 
    .. code-block:: none
 
       python3 -m jpredapi status --jobid=jp_K46D05A --results=jpred_sspred/results
 
-Check single job status using ``job_id``, retrieve results, and decompress archive:
-***********************************************************************************
+Check single job status using ``jobid``, retrieve results, and decompress archive:
+**********************************************************************************
 
    .. code-block:: none
 
@@ -247,16 +247,16 @@ Retrieve results from JPred server
 ----------------------------------
 
 
-Retrieve results using ``job_id``:
-**********************************
+Retrieve results using ``jobid``:
+*********************************
 
    .. code-block:: none
 
       python3 -m jpredapi get_results --jobid=jp_K46D05A --results=jpred_sspred/results
 
 
-Retrieve results using ``job_id`` and decompress archive:
-*********************************************************
+Retrieve results using ``jobid`` and decompress archive:
+********************************************************
 
    .. code-block:: none
 
@@ -343,25 +343,25 @@ Check job status on JPred server
 --------------------------------
 
 
-Check single job status using ``job_id``:
-*****************************************
+Check single job status using ``jobid``:
+****************************************
 
 >>> import jpredapi
 >>>
->>> jpredapi.status(job_id="jp_K46D05A")
->>> 
+>>> jpredapi.status(jobid="jp_K46D05A")
+>>>
 
 
 Check single job status using ``job_id`` and retrieve results:
 **************************************************************
 
->>> jpredapi.status(job_id="jp_K46D05A", results_dir_path="jpred_sspred/results")
+>>> jpredapi.status(jobid="jp_K46D05A", results_dir_path="jpred_sspred/results")
 >>>
 
-Check single job status using ``job_id``, retrieve results, and decompress archive:
-***********************************************************************************
+Check single job status using ``jobid``, retrieve results, and decompress archive:
+**********************************************************************************
 
->>> jpredapi.status(job_id="jp_K46D05A", results_dir_path="jpred_sspred/results", extract=True)
+>>> jpredapi.status(jobid="jp_K46D05A", results_dir_path="jpred_sspred/results", extract=True)
 >>> 
 
 
@@ -369,19 +369,19 @@ Retrieve results from JPred server
 ----------------------------------
 
 
-Retrieve results using ``job_id``:
-**********************************
+Retrieve results using ``jobid``:
+*********************************
 
 >>> import jpredapi
 >>>
->>> jpredapi.get_results(job_id="jp_K46D05A", results_dir_path="jpred_sspred/results")
->>> 
+>>> jpredapi.get_results(jobid="jp_K46D05A", results_dir_path="jpred_sspred/results")
+>>>
 
 
-Retrieve results using ``job_id`` and decompress archive:
-*********************************************************
+Retrieve results using ``jobid`` and decompress archive:
+********************************************************
 
->>> jpredapi.get_results(job_id="jp_K46D05A", results_dir_path="jpred_sspred/results", extract=True)
+>>> jpredapi.get_results(jobid="jp_K46D05A", results_dir_path="jpred_sspred/results", extract=True)
 >>> 
 
 

@@ -56,7 +56,7 @@ def cli(cmdargs):
                    host=cmdargs["--rest"])
 
     elif cmdargs["status"]:
-        api.status(job_id=cmdargs["--jobid"],
+        api.status(jobid=cmdargs["--jobid"],
                    results_dir_path=cmdargs["--results"],
                    extract=cmdargs["--extract"],
                    silent=cmdargs["--silent"],
@@ -64,7 +64,7 @@ def cli(cmdargs):
                    jpred4=cmdargs["--jpred4"])
 
     elif cmdargs["get_results"]:
-        api.get_results(job_id=cmdargs["--jobid"],
+        api.get_results(jobid=cmdargs["--jobid"],
                         results_dir_path=cmdargs["--results"],
                         extract=cmdargs["--extract"],
                         silent=cmdargs["--silent"],

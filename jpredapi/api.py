@@ -97,12 +97,12 @@ def submit(mode, user_format, file=None, seq=None, skipPDB=True, email=None, nam
 
 
 @retry(wait_fixed=WAIT_INTERVAL, stop_max_attempt_number=MAX_ATTEMPTS)
-def status(job_id, results_dir_path=None, extract=False, silent=False,
+def status(jobid, results_dir_path=None, extract=False, silent=False,
            host="http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest",
            jpred4="http://www.compbio.dundee.ac.uk/jpred4"):
     """Check status of the submitted job.
 
-    :param str job_id: Job id.
+    :param str jobid: Job id.
     :param str results_dir_path: Directory path where to save results if job is finished.
     :param extract: Extract (True) or not (False) results into directory.
     :type extract: :py:obj:`True` or :py:obj:`False`
@@ -115,10 +115,10 @@ def status(job_id, results_dir_path=None, extract=False, silent=False,
     """
     if not silent:
         print("Your job status will be checked with the following parameters:")
-        print("Job id:", job_id)
+        print("Job id:", jobid)
         print("Get results:", bool(results_dir_path))
 
-    job_url = "{}/{}/{}/{}".format(host, "job", "id", job_id)
+    job_url = "{}/{}/{}/{}".format(host, "job", "id", jobid)
     response = requests.get(job_url)
 
     if response.reason == "OK":
@@ -127,12 +127,12 @@ def status(job_id, results_dir_path=None, extract=False, silent=False,
 
         if "finished" in response.text.lower():
             if results_dir_path is not None:
-                results_dir_path = os.path.join(results_dir_path, job_id)
+                results_dir_path = os.path.join(results_dir_path, jobid)
                 if not os.path.exists(results_dir_path):
                     os.makedirs(results_dir_path)
 
-                archive_url = "{}/{}/{}/{}.{}".format(jpred4, "results", job_id, job_id, "tar.gz")
-                archive_path = os.path.join(results_dir_path, "{}.{}".format(job_id, "tar.gz"))
+                archive_url = "{}/{}/{}/{}.{}".format(jpred4, "results", jobid, jobid, "tar.gz")
+                archive_path = os.path.join(results_dir_path, "{}.{}".format(jobid, "tar.gz"))
 
                 archive_response = requests.get(archive_url, stream=True)
                 with open(archive_path, "wb") as outfile:
@@ -151,12 +151,12 @@ def status(job_id, results_dir_path=None, extract=False, silent=False,
     return response
 
 
-def get_results(job_id, results_dir_path=None, extract=False, silent=False,
+def get_results(jobid, results_dir_path=None, extract=False, silent=False,
                 host="http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest",
                 jpred4="http://www.compbio.dundee.ac.uk/jpred4"):
     """Download results from JPred server.
 
-    :param str job_id: Job id.
+    :param str jobid: Job id.
     :param str results_dir_path: Directory path where to save results if job is finished.
     :param extract: Extract (True) or not (False) results into directory.
     :type extract: :py:obj:`True` or :py:obj:`False`
@@ -168,8 +168,8 @@ def get_results(job_id, results_dir_path=None, extract=False, silent=False,
     :rtype: requests.Response
     """
     if results_dir_path is None:
-        results_dir_path = os.path.join(os.getcwd(), job_id)
-    return status(job_id=job_id, results_dir_path=results_dir_path, extract=extract, silent=silent, host=host, jpred4=jpred4)
+        results_dir_path = os.path.join(os.getcwd(), jobid)
+    return status(jobid=jobid, results_dir_path=results_dir_path, extract=extract, silent=silent, host=host, jpred4=jpred4)
 
 
 def _resolve_rest_format(mode, user_format):
@@ -229,8 +229,6 @@ def _create_jpred_query(rest_format, file=None, seq=None, skipPDB=True, email=No
         with open(file, "r") as infile:
             sequence_query = infile.read()
     elif seq is not None:
-        # assert len(list(seq)) >= 20, "Your sequence is shorter than the JPred limit of 20 residues. " \
-        #                              "JPred is not able to make predictions for such small proteins."
         sequence_query = ">query\n{}".format(seq)
     else:
         sequence_query = ""

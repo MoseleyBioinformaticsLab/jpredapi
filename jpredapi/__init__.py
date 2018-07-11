@@ -25,9 +25,9 @@ Usage example for interactive Python shell:
    >>>
    >>> jpredapi.submit(mode="single", user_format="raw", seq="MQVWPIEGIKKFETLSYLPP")
    >>>
-   >>> jpredapi.status(job_id="jp_K46D05A")
+   >>> jpredapi.status(jobid="jp_K46D05A")
    >>>
-   >>> jpredapi.get_results(job_id="jp_K46D05A", results_dir_path="jpred_sspred/results")
+   >>> jpredapi.get_results(jobid="jp_K46D05A", results_dir_path="jpred_sspred/results")
    >>>
    >>> jpredapi.quota(email="name@domain.com")
    >>>
