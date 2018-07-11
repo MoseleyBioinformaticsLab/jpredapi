@@ -3,6 +3,22 @@
 Release History
 ===============
 
+
+1.5.3 (2018-07-07)
+~~~~~~~~~~~~~~~~~~
+
+**Improvements**
+
+- API calls return actual `Response` object instead of returning `None`.
+- Added "--attempts=<max>" option to specify maximum number of attempts before giving up.
+- Added "check_rest_version" command.
+- Added "mock" and "real" tests.
+
+**Bugfixes**
+
+- Added check that job was actually created on JPred server.
+
+
 1.5.2 (2018-06-19)
 ~~~~~~~~~~~~~~~~~~
 
