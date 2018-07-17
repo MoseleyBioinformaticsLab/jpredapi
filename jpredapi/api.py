@@ -80,10 +80,10 @@ def submit(mode, user_format, file=None, seq=None, skipPDB=True, email=None, nam
     if response.status_code == 202 and "created jred job" in response.text.lower():
         if rest_format != "batch":
             result_url = response.headers['Location']
-            job_id = re.search(r"(jp_.*)$", result_url).group(1)
+            jobid = re.search(r"(jp_.*)$", result_url).group(1)
 
             if not silent:
-                print("Created JPred job with jobid:", job_id)
+                print("Created JPred job with jobid:", jobid)
                 print("You can check the status of the job using the following URL:", result_url)
 
         elif rest_format == "batch":
