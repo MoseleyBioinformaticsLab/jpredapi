@@ -2,15 +2,15 @@ jpredapi
 ========
 
 .. image:: https://img.shields.io/pypi/l/jpredapi.svg
-   :target: https://choosealicense.com/licenses/mit/
+   :target: https://choosealicense.com/licenses/mit
    :alt: License information
 
 .. image:: https://img.shields.io/pypi/v/jpredapi.svg
-   :target: https://pypi.org/project/jpredapi/
+   :target: https://pypi.org/project/jpredapi
    :alt: Current library version
 
 .. image:: https://img.shields.io/pypi/pyversions/jpredapi.svg
-   :target: https://pypi.org/project/jpredapi/
+   :target: https://pypi.org/project/jpredapi
    :alt: Supported Python versions
 
 .. image:: https://readthedocs.org/projects/jpredapi/badge/?version=latest
@@ -63,15 +63,15 @@ Install on Windows
 License
 ~~~~~~~
 
-This package is distributed under the BSD_ `license`.
+This package is distributed under the MIT_ `license`.
 
 
-.. _pip: https://pip.pypa.io/
-.. _JPred: http://www.compbio.dundee.ac.uk/jpred/
+.. _pip: https://pip.pypa.io
+.. _JPred: http://www.compbio.dundee.ac.uk/jpred
 
 .. _GitHub: https://github.com/MoseleyBioinformaticsLab/jpredapi
-.. _ReadTheDocs: http://jpredapi.readthedocs.io/
-.. _PyPI: https://pypi.python.org/pypi/jpredapi/1.5.0
+.. _ReadTheDocs: http://jpredapi.readthedocs.io
+.. _PyPI: https://pypi.org/project/jpredapi
 .. _User Guide: http://jpredapi.readthedocs.io/en/latest/guide.html
 .. _The jpredapi Tutorial: http://jpredapi.readthedocs.io/en/latest/tutorial.html
-.. _BSD: https://choosealicense.com/licenses/bsd-3-clause-clear/
+.. _MIT: https://choosealicense.com/licenses/mit
