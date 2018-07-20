@@ -42,4 +42,4 @@ from .api import quota
 from .api import check_rest_version
 
 
-__version__ = "1.5.5"
+__version__ = "1.5.6"
