@@ -2,7 +2,7 @@ jpredapi
 ========
 
 .. image:: https://img.shields.io/pypi/l/jpredapi.svg
-   :target: https://choosealicense.com/licenses/bsd-3-clause-clear/
+   :target: https://choosealicense.com/licenses/mit/
    :alt: License information
 
 .. image:: https://img.shields.io/pypi/v/jpredapi.svg
