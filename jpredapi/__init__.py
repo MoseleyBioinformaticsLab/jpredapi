@@ -5,7 +5,7 @@
 """
 jpredapi Python library
 ~~~~~~~~~~~~~~~~~~~~~~~
-The RESTful API allows JPred users to submit jobs from the command-line.
+The JPred API allows users to submit jobs from the command-line.
 
 Usage example for command-line:
 
