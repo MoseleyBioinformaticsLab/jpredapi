@@ -6,11 +6,16 @@ Release History
 1.5.6 (2018-07-20)
 ~~~~~~~~~~~~~~~~~~
 
+**Improvements**
+
 - Fixed license badge display.
+- Updated links.
 
 
 1.5.4 - 1.5.5 (2018-07-19)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Improvements**
 
 - Changed license to MIT.
 
