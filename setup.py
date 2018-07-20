@@ -41,7 +41,7 @@ setup(
     author_email='andrey.smelter@gmail.com',
     description='Python library for submitting jobs to JPRED - A Protein Secondary Structure Prediction Server',
     keywords='JPred REST API',
-    license='BSD',
+    license='MIT',
     url='https://github.com/MoseleyBioinformaticsLab/jpredapi',
     packages=find_packages(),
     platforms='any',
