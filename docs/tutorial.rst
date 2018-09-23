@@ -2,7 +2,7 @@ The jpredapi Tutorial
 =====================
 
 The :mod:`jpredapi` package provides functions to submit, check status, and 
-retrieve results from JPred: A Secondary Structure Prediction Server.
+retrieve results from JPred: A Secondary Structure Prediction Server (JPred_).
 
 
 Command Line Interface
@@ -398,3 +398,6 @@ Check how many jobs you have already submitted on a given day:
 >>> 
 >>> jpredapi.quota(email="name@domain.com")
 >>>
+
+
+.. _JPred: http://www.compbio.dundee.ac.uk/jpred/
