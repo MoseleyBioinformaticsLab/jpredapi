@@ -226,8 +226,8 @@ Check job status on JPred server
 --------------------------------
 
 
-Check single job status using ``job_id``:
-*****************************************
+Check single job status using ``jobid``:
+****************************************
 
 .. code-block:: none
 
@@ -358,8 +358,8 @@ Check single job status using ``jobid``:
 >>>
 
 
-Check single job status using ``job_id`` and retrieve results:
-**************************************************************
+Check single job status using ``jobid`` and retrieve results:
+*************************************************************
 
 >>> jpredapi.status(jobid="jp_K46D05A", results_dir_path="jpred_sspred/results")
 >>>
