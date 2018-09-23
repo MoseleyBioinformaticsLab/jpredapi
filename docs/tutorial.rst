@@ -91,7 +91,7 @@ Submit single sequence in ``fasta`` format using ``--file`` parameter:
 
    .. code-block:: none
 
-      python3 -m jpredapi submit --mode=single --format=fasta --file=tests/example_data/single_raw.example
+      python3 -m jpredapi submit --mode=single --format=fasta --file=tests/example_data/single_fasta.example
 
 Content of ``single_fasta.example`` file:
    .. code-block:: none
